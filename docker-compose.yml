@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+    networks:
+      - localnet
+volumes:
+  db:
+    driver: local
+networks:
+  localnet:
+    driver: bridge
