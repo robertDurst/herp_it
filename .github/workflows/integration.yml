@@ -24,4 +24,4 @@ jobs:
         run: doctl registry login --expiry-seconds 600
 
       - name: Push image to DO Container Registry
-        run: docker compose -f docker-compose.prod.yml push
+        run: docker compose -f docker-compose.yml push
