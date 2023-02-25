@@ -28,10 +28,10 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Tag image 
-        run: docker tag herpit/ingestor registry.digitalocean.com/herpit-reg/herpit-ingestor:${{ steps.vars.outputs.sha_short }}
+        run: docker tag herpit/ingestor registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
 
       - name: Log in to DO Container Registry
         run: doctl registry login --expiry-seconds 600
 
       - name: Push image to DO Container Registry
-        run: docker push registry.digitalocean.com/herpit-reg/herpit-ingestor:${{ steps.vars.outputs.sha_short }}
+        run: docker push registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
