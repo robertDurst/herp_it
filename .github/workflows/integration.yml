@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Set outputs
         id: vars
-        run: echo "SHORT_SHA=`echo $(git rev-parse --short HEAD)`" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=`echo ${{ github.sha }}`" >> $GITHUB_ENV
 
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.env }}
@@ -19,8 +19,8 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker compose -f docker-compose.yml build
+      # - name: Build image
+      #   run: docker compose -f docker-compose.yml build
 
       # - name: Install doctl
       #   uses: digitalocean/action-doctl@v2
