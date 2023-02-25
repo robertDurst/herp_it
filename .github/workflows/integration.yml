@@ -20,19 +20,19 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v2
 
-      # - name: Build image
-      #   run: docker compose -f docker-compose.yml build
+      - name: Build image
+        run: docker compose -f docker-compose.yml build
 
-      # - name: Install doctl
-      #   uses: digitalocean/action-doctl@v2
-      #   with:
-      #     token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      # - name: Tag image 
-      #   run: docker tag herpit/ingestor registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
+      - name: Tag image 
+        run: docker tag herpit/ingestor registry.digitalocean.com/herpit-reg/herpit-ingestor:${{ env.SHORT_SHA }}
 
-      # - name: Log in to DO Container Registry
-      #   run: doctl registry login --expiry-seconds 600
+      - name: Log in to DO Container Registry
+        run: doctl registry login --expiry-seconds 600
 
-      # - name: Push image to DO Container Registry
-      #   run: docker push registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
+      - name: Push image to DO Container Registry
+        run: docker push registry.digitalocean.com/herpit-reg/herpit-ingestor:${{ env.SHORT_SHA }}
