@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Set outputs
         id: vars
-        run: echo "SHORT_SHA=`echo ${git rev-parse --short HEAD}" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=`echo ${git rev-parse --short HEAD}`" >> $GITHUB_ENV
 
       - name: Check outputs
         run: echo ${{ steps.vars.outputs }}
