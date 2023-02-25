@@ -15,7 +15,7 @@ jobs:
         run: echo "SHORT_SHA=`echo ${{ github.sha }} | cut -c1-8`" >> $GITHUB_ENV
 
       - name: Check outputs
-        run: echo ${{ steps.vars.outputs.env.SHORT_SHA }}
+        run: echo ${{ env.SHORT_SHA }}
 
       - name: Checkout main branch
         uses: actions/checkout@v2
