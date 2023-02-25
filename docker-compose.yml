@@ -12,8 +12,8 @@ services:
       - db:/var/lib/postgresql/data
     networks:
       - localnet
-  web:
-    image: sample/my-page:latest
+  ingestor:
+    image: herpit/ingestor:latest
     build:
       context: .
       dockerfile: Dockerfile
