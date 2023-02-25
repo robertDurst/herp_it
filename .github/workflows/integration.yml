@@ -1,7 +1,8 @@
 name: Continuous Integration
 
+# only do certain ones when actually merge
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -9,6 +10,9 @@ jobs:
   merge_pull_request:
     runs-on: ubuntu-latest
     steps:
+      - name: Echo INGESTOR_VERSION
+        run: echo ${{ secrets.INGESTOR_VERSION }}
+
       - name: Checkout main branch
         uses: actions/checkout@v2
 
@@ -20,8 +24,11 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
+      - name: Tag image with SHORT_SHA
+        run: docker tag herpit/ingestor registry.digitalocean.com/herpit-reg/herpit-ingestor:${{ secrets.INGESTOR_VERSION }}
+
       - name: Log in to DO Container Registry
         run: doctl registry login --expiry-seconds 600
 
       - name: Push image to DO Container Registry
-        run: docker compose -f docker-compose.yml push
+        run: docker push registry.digitalocean.com/herpit-reg/herpit-ingestor:${{ secrets.INGESTOR_VERSION }}
