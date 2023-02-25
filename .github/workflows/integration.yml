@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Set outputs
         id: vars
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=`echo ${git rev-parse --short HEAD}" >> $GITHUB_ENV
 
       - name: Check outputs
-        run: echo ${{ steps.vars.outputs.sha_short }}
+        run: echo ${{ steps.vars.outputs }}
 
       - name: Checkout main branch
         uses: actions/checkout@v2
@@ -22,16 +22,16 @@ jobs:
       - name: Build image
         run: docker compose -f docker-compose.yml build
 
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      # - name: Install doctl
+      #   uses: digitalocean/action-doctl@v2
+      #   with:
+      #     token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Tag image 
-        run: docker tag herpit/ingestor registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
+      # - name: Tag image 
+      #   run: docker tag herpit/ingestor registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
 
-      - name: Log in to DO Container Registry
-        run: doctl registry login --expiry-seconds 600
+      # - name: Log in to DO Container Registry
+      #   run: doctl registry login --expiry-seconds 600
 
-      - name: Push image to DO Container Registry
-        run: docker push registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
+      # - name: Push image to DO Container Registry
+      #   run: docker push registry.digitalocean.com/herpit-reg/herpit-ingestor:1.0.0
