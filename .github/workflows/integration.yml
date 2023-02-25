@@ -1,5 +1,6 @@
 name: Continuous Integration
 
+# only do certain ones when actually merge
 on:
   pull_request:
     branches:
@@ -11,10 +12,10 @@ jobs:
     steps:
       - name: Set outputs
         id: vars
-        run: echo "SHORT_SHA=`echo ${{ github.sha }}`" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=`echo ${{ github.sha }} | cut -c1-8`" >> $GITHUB_ENV
 
       - name: Check outputs
-        run: echo ${{ steps.vars.outputs }}
+        run: echo ${{ steps.vars.outputs.env.SHORT_SHA }}
 
       - name: Checkout main branch
         uses: actions/checkout@v2
