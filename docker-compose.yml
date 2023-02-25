@@ -13,6 +13,7 @@ services:
     networks:
       - localnet
   web:
+    image: registry.digitalocean.com/herpit-reg
     build:
       context: .
       dockerfile: Dockerfile
